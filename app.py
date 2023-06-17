@@ -5,6 +5,9 @@ import requests
 
 app = Flask(__name__)
 
+# Set the Tesseract executable path
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     data = request.get_data()  # get the binary data
