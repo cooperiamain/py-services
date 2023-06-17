@@ -23,6 +23,7 @@ pikepdf==7.2.0
 Pillow==9.5.0
 pluggy==1.0.0
 pycparser==2.21
+pytesseract==0.3.10
 reportlab==4.0.4
 requests==2.31.0
 tqdm==4.65.0

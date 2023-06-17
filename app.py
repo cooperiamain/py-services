@@ -2,6 +2,7 @@ from flask import Flask, request
 import ocrmypdf
 import os
 import requests
+import pytesseract
 
 app = Flask(__name__)
 
