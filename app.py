@@ -48,7 +48,7 @@ def upload_file():
     # delete the output file
     os.remove(output_path)
 
-    return f'OCR upload successfully: {response.text}', 200
+    return f'{response.text}', 200
 
 if __name__ == '__main__':
     app.run(debug=True)
