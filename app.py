@@ -2,15 +2,15 @@ from flask import Flask, request
 import ocrmypdf
 import os
 import requests
-import pytesseract
 
 app = Flask(__name__)
 
-# Set the Tesseract executable path
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+# create a counter to avoid overwriting files
+file_count = 0
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    global file_count # use the global counter
     data = request.get_data()  # get the binary data
 
     if request.method != 'POST':
@@ -19,9 +19,12 @@ def upload_file():
     if not data:
         return 'No file provided', 400
 
+    # create a counter to avoid overwriting files
+    file_count += 1
+
     # create paths for the input and output files
-    input_path = os.path.join('temp', 'input.pdf')
-    output_path = os.path.join('temp', 'ocr_output.pdf')
+    input_path = os.path.join('temp', f'input {file_count}.pdf')
+    output_path = os.path.join('temp', f'ocr_output{file_count}.pdf')
 
     # write the binary data to a file
     with open(input_path, 'wb') as f:
