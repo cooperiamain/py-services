@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 import ocrmypdf
 import os
 import requests
@@ -12,7 +12,8 @@ file_count = 0
 def upload_file():
     global file_count # use the global counter
     data = request.get_data()  # get the binary data
-
+    
+    # only allow POST requests
     if request.method != 'POST':
         return 'Only POST requests are allowed', 405
 
@@ -51,7 +52,9 @@ def upload_file():
     # delete the output file
     os.remove(output_path)
 
-    return f'{response.text}', 200
+    # return the response
+    respond = Response(response.text, status=200, mimetype='application/json')
+    return respond
 
 if __name__ == '__main__':
     app.run(debug=True)
